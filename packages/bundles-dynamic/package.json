@@ -4,7 +4,7 @@
   "description": "Dynamic bundles custom application",
   "private": true,
   "scripts": {
-    "build": "mc-scripts build --build-only",
+    "build": "mc-scripts build",
     "start": "MC_APP_ENV=development mc-scripts start",
     "compile-html:local": "NODE_ENV=production MC_APP_ENV=development  mc-scripts compile-html --transformer @commercetools-frontend/mc-dev-authentication/transformer-local.js",
     "compile-html": "NODE_ENV=production MC_APP_ENV=production  mc-scripts compile-html --transformer @commercetools-frontend/mc-dev-authentication/transformer-local.js",
