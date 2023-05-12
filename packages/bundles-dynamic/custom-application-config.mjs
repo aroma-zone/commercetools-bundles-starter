@@ -6,11 +6,11 @@ const config = {
     cloudIdentifier: "gcp-eu",
     env: {
         production: {
-            applicationId: "clg4ugg1j00zsyp01tnxdkljw",
+            applicationId: "clh95s1bt0088ux017396c5in",
             url: "wondrous-cocada-43bdf8.netlify.app",
         },
         development: {
-            initialProjectKey: "bundles"
+            initialProjectKey: "aromazone-dev"
         }
     },
     oAuthScopes: {

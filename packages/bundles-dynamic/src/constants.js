@@ -11,7 +11,7 @@ const ATTRIBUTES = {
   MIN_QUANTITY: 'min-quantity',
   MAX_QUANTITY: 'max-quantity',
 };
-const entryPointUriPath = 'bundles-dynamic';
+const entryPointUriPath = 'bundles';
 
 const PERMISSIONS = entryPointUriPathToPermissionKeys(entryPointUriPath);
 
