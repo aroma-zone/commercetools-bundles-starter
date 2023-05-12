@@ -1,16 +1,16 @@
 import { entryPointUriPath, PERMISSIONS } from "./src/constants";
 
 const config = {
-    name: "Dynamic bundles",
+    name: "bundles",
     entryPointUriPath: entryPointUriPath,
-    cloudIdentifier: "${env:CLOUD_IDENTIFIER}",
+    cloudIdentifier: "gcp-eu",
     env: {
         production: {
-            applicationId: "${env:APPLICATION_ID}",
-            url: "${env:APPLICATION_URL}",
+            applicationId: "clg4ugg1j00zsyp01tnxdkljw",
+            url: "https://bundles.aroma-host.net",
         },
         development: {
-            initialProjectKey: "${env:INITIAL_PROJECT_KEY}"
+            initialProjectKey: "bundles"
         }
     },
     oAuthScopes: {
