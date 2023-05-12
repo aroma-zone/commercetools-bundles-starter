@@ -7,7 +7,7 @@ const config = {
     env: {
         production: {
             applicationId: "clh95s1bt0088ux017396c5in",
-            url: "wondrous-cocada-43bdf8.netlify.app",
+            url: "https://wondrous-cocada-43bdf8.netlify.app",
         },
         development: {
             initialProjectKey: "aromazone-dev"

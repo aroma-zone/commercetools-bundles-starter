@@ -5,8 +5,9 @@
   "private": true,
   "scripts": {
     "build": "mc-scripts build --build-only",
-    "start": "mc-scripts start",
+    "start": "MC_APP_ENV=development mc-scripts start",
     "compile-html:local": "NODE_ENV=production MC_APP_ENV=development  mc-scripts compile-html --transformer @commercetools-frontend/mc-dev-authentication/transformer-local.js",
+    "compile-html": "NODE_ENV=production MC_APP_ENV=production  mc-scripts compile-html --transformer @commercetools-frontend/mc-dev-authentication/transformer-local.js",
     "start:prod:local": "yarn compile-html:local && mc-scripts serve",
     "precommit": "lint-staged",
     "i18n:build": "mc-scripts extract-intl --output-path=$(pwd)/src/i18n/data '{src,../bundles-core,../core}/**/!(*.spec).js' --build-translations",
