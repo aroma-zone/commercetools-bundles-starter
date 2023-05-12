@@ -7,7 +7,7 @@ const config = {
     env: {
         production: {
             applicationId: "clg4ugg1j00zsyp01tnxdkljw",
-            url: "https://bundles.aroma-host.net",
+            url: "wondrous-cocada-43bdf8.netlify.app",
         },
         development: {
             initialProjectKey: "bundles"
