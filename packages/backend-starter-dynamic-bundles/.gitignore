@@ -9,3 +9,4 @@ development.env
 production.env
 default.env
 *.log
+get-auth-token.local.sh
