@@ -3,14 +3,14 @@ import { entryPointUriPath, PERMISSIONS } from './src/constants';
 const config = {
   name: 'Static bundles',
   entryPointUriPath: entryPointUriPath,
-  cloudIdentifier: '${env:CLOUD_IDENTIFIER}',
+  cloudIdentifier: "gcp-eu",
   env: {
     production: {
-      applicationId: '${env:APPLICATION_ID}',
-      url: '${env:APPLICATION_URL}',
+      applicationId: "clh95s1bt0088ux017396c5in",
+      url: "https://silly-kelpie-df8923.netlify.app",
     },
     development: {
-      initialProjectKey: '${env:INITIAL_PROJECT_KEY}',
+      initialProjectKey: "aromazone-dev"
     },
   },
   oAuthScopes: {
