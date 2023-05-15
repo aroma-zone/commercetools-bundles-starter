@@ -56,7 +56,7 @@ curl https://api.${REGION}.commercetools.com/${PROJECT_KEY}/types -i \
 }
 DATA
 
-curl https://api.${REGION}.commercetools.com/${PROJECT_KEY}/types -i \
+curl https://api.${REGION}.commercetools.com/${PROJECT_KEY}/product-types -i \
 --header "Authorization: Bearer ${BEARER_TOKEN}" \
 --header 'Content-Type: application/json' \
 --data-binary @- << DATA
@@ -141,7 +141,7 @@ curl https://api.${REGION}.commercetools.com/${PROJECT_KEY}/types -i \
 }
 DATA
 
-curl https://api.${REGION}.commercetools.com/${PROJECT_KEY}/types -i \
+curl https://api.${REGION}.commercetools.com/${PROJECT_KEY}/product-types -i \
 --header "Authorization: Bearer ${BEARER_TOKEN}" \
 --header 'Content-Type: application/json' \
 --data-binary @- << DATA

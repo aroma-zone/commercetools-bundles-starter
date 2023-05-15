@@ -6,14 +6,14 @@ CLIENT_SECRET="CLIENT_SECRET"
 REGION="europe-west1.gcp"
 PROJECT_KEY="PROJECT_KEY"
 
-response=$(curl https://auth.${REGION}.commercetools.com/oauth/token \
+RESPONSE=$(curl https://auth.${REGION}.commercetools.com/oauth/token \
      --basic --user "${CLIENT_ID}:${CLIENT_SECRET}" \
      -X POST \
      -d "grant_type=client_credentials&scope=manage_project:${PROJECT_KEY} manage_api_clients:${PROJECT_KEY}")
 
-BEARER_TOKEN=$(echo $response | awk -F'"' '/access_token/{print $4}')
+BEARER_TOKEN=$(echo $RESPONSE | awk -F'"' '/access_token/{print $4}')
 
-curl https://api.${REGION}.commercetools.com/${PROJECT_KEY}/types -i \
+RESPONSE_CHILD=$(curl https://api.${REGION}.commercetools.com/${PROJECT_KEY}/product-types -i \
 --header "Authorization: Bearer ${BEARER_TOKEN}" \
 --header 'Content-Type: application/json' \
 --data-binary @- << DATA
@@ -96,9 +96,11 @@ curl https://api.${REGION}.commercetools.com/${PROJECT_KEY}/types -i \
   ],
   "key": "static-bundle-child-variant"
 }
-DATA
+DATA)
 
-curl https://api.${REGION}.commercetools.com/${PROJECT_KEY}/types -i \
+CHILD_ID=$(echo $RESPONSE_CHILD | perl -nle 'print $1 if m{"id":"(.*?)"[^\\]}')
+
+curl https://api.${REGION}.commercetools.com/${PROJECT_KEY}/product-types -i \
 --header "Authorization: Bearer ${BEARER_TOKEN}" \
 --header 'Content-Type: application/json' \
 --data-binary @- << DATA
@@ -119,7 +121,7 @@ curl https://api.${REGION}.commercetools.com/${PROJECT_KEY}/types -i \
           "name": "nested",
           "typeReference": {
             "typeId": "product-type",
-            "id": "<ID of static-bundle-child-variant product type goes here>"
+            "id": "${CHILD_ID}"
           }
         }
       },
