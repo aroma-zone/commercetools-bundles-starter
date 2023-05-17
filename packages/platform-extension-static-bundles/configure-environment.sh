@@ -146,6 +146,36 @@ curl https://api.${REGION}.commercetools.com/${PROJECT_KEY}/product-types -i \
       "isSearchable": true,
       "inputHint": "SingleLine",
       "displayGroup": "Other"
+    },
+    {
+      "type" : {
+        "name" : "lenum",
+        "values" : [
+        {
+          "key" : "Bundle",
+          "label" : {
+            "en" : "Bundle",
+            "it" : "Bundle",
+            "fr" : "Kit"
+          }
+        },
+        {
+          "key" : "Routine",
+          "label" : {
+            "en" : "Routine",
+            "it" : "Routine",
+            "fr" : "Routine"
+          }
+        }]
+      },
+      "name" : "product-label",
+      "label" : {
+        "en" : "Product Label",
+        "fr" : "Label Produit"
+      },
+        "isRequired" : false,
+        "attributeConstraint" : "SameForAll",
+        "isSearchable" : true
     }
   ],
   "key": "static-bundle-parent"
