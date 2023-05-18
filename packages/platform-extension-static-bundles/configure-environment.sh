@@ -176,6 +176,63 @@ curl https://api.${REGION}.commercetools.com/${PROJECT_KEY}/product-types -i \
         "isRequired" : false,
         "attributeConstraint" : "SameForAll",
         "isSearchable" : true
+    },
+    {
+      "name": "best-seller",
+      "label": {
+        "en": "Bestseller",
+        "fr": "Bestseller",
+        "it": "Bestseller"
+      },
+      "isRequired": false,
+      "type": {
+        "name": "boolean"
+      },
+      "attributeConstraint": "SameForAll",
+      "isSearchable": true,
+      "inputHint": "SingleLine",
+      "displayGroup": "Other"
+    },
+    {
+      "name": "is-sellable",
+      "label": {
+        "en": "Is sellable",
+        "fr": "Disponible en vente",
+        "it": "Is sellable"
+      },
+      "isRequired": true,
+      "type": {
+        "name": "lenum",
+        "values": [
+        {
+          "key": "InStock",
+          "label": {
+            "en": "In Stock",
+            "fr": "En stock",
+            "it": "Rupture de stock"
+          }
+        },
+        {
+          "key": "OutOfStock",
+          "label": {
+            "en": "Out of Stock",
+            "fr": "Out of Stock",
+            "it": "Out of Stock"
+          }
+        },
+        {
+          "key": "NotAvailable",
+          "label": {
+            "en": "Not Available",
+            "fr": "Indisponible",
+            "it": "Non disponibile"
+          }
+        }]
+      },
+      "attributeConstraint": "None",
+      "isSearchable": true,
+      "inputHint": "SingleLine",
+      "displayGroup": "Other"
     }
   ],
   "key": "static-bundle-parent"
