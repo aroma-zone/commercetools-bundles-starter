@@ -54,7 +54,8 @@ jobs:
            }
            #Set-AzWebApp -Name "MyWebApp" -ResourceGroupName "MyResourceGroup" -AppSettings@{"MyKey"="MyValue"}
            az webapp deployment list-publishing-profiles --xml --resource-group ${{ env.ResourceGroupName }} --name ${{ env.WebAppName }} | Out-File -FilePath .\profile.txt
-           $profile = Get-Content .\profile.txt -Raw 
+           $profile = Get-Content .\profile.txt -Raw
+           Write-host "Profile: $profile"
            echo "PROFILE=$profile" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
             
     - name: 'Deploy to Azure WebApp'
