@@ -68,7 +68,10 @@ jobs:
            #Set-AzWebApp -Name "MyWebApp" -ResourceGroupName "MyResourceGroup" -AppSettings@{"MyKey"="MyValue"}
            az webapp deployment list-publishing-profiles --xml --resource-group ${{ env.ResourceGroupName }} --name ${{ env.WebAppName }} | Out-File -FilePath .\profile.txt
            $profile = Get-Content .\profile.txt -Raw
-           Write-host "Profile: $profile"
+           $Bytes = [System.Text.Encoding]::Unicode.GetBytes($profile)
+           $EncodedText =[Convert]::ToBase64String($Bytes)
+           echo $EncodedText
+
             
     - name: 'Deploy to Azure WebApp'
       uses: azure/webapps-deploy@v2.2.3
