@@ -35,9 +35,6 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         enable-AzPSSession: true
-
-    - name: Install dependencies
-      run: ls -la
       
     - name: Create Storage account 
       uses: azure/powershell@v1
@@ -56,6 +53,8 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
+          cd packages/platform-extension-static-bundles
+          ls -la
           az storage blob delete-batch --account-name ${{ env.StorageAccountName }} --auth-mode key -s '$web' 
           az storage blob upload-batch --account-name ${{ env.StorageAccountName }} --auth-mode key -d '$web' -s public/
 
