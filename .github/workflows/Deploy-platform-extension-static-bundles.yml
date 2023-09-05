@@ -56,7 +56,7 @@ jobs:
           cd packages/platform-extension-static-bundles
           ls -la
           az storage blob delete-batch --account-name ${{ env.StorageAccountName }} --auth-mode key -s '$web' 
-          az storage blob upload-batch --account-name ${{ env.StorageAccountName }} --auth-mode key -d '$web' -s public/
+          az storage blob upload-batch --account-name ${{ env.StorageAccountName }} --auth-mode key -d '$web' -s ./
 
     - name: logout
       run: |
