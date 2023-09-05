@@ -29,14 +29,16 @@ jobs:
          APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
       run: |
          cd packages/platform-extension-static-bundles
-         pwd
-         ls -la
          yarn build
       
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
+        enable-AzPSSession: true
+
+    - name: Install dependencies
+      run: ls -la
+      
     - name: Create Storage account 
       uses: azure/powershell@v1
       id: SA_step
