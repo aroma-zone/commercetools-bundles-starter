@@ -5,6 +5,7 @@ on:
     paths:
       - 'packages/platform-extension-static-bundles/**'
     branches: [ master ]
+  workflow_dispatch:
 
 env:
   ResourceGroupName: rg_web_mwd_dev
