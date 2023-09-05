@@ -2,7 +2,7 @@ name: Blob storage website CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 env:
   ResourceGroupName: rg_web_mwd_dev
