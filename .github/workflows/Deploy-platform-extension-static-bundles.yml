@@ -63,7 +63,7 @@ jobs:
            }
            $webApp = Get-AzWebApp -ResourceGroupName ${{ env.ResourceGroupName }} -Name ${{ env.WebAppName }} -ErrorAction SilentlyContinue
            if($webApp -eq $null){
-              $webApp = New-AzWebApp -ResourceGroupName ${{ env.ResourceGroupName }} -Name ${{ env.WebAppName }} -Location${{ env.ResourceGroupRegionLocation }} -AppServicePlan ${{ env.AppServicePlanName }}
+              $webApp = New-AzWebApp -ResourceGroupName ${{ env.ResourceGroupName }} -Name ${{ env.WebAppName }} -Location ${{ env.ResourceGroupRegionLocation }} -AppServicePlan ${{ env.AppServicePlanName }}
            }
            az webapp deployment list-publishing-profiles --xml --resource-group ${{ env.ResourceGroupName }} --name ${{ env.WebAppName }} | Out-File -FilePath .\profile.txt
            $profile = Get-Content .\profile.txt -Raw
