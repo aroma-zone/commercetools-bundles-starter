@@ -63,13 +63,11 @@ jobs:
            }
            $webApp = Get-AzWebApp -ResourceGroupName ${{ env.ResourceGroupName }} -Name ${{ env.WebAppName }} -ErrorAction SilentlyContinue
            if($webApp -eq $null){
-              $webApp = New-AzWebApp -ResourceGroupName ${{ env.ResourceGroupName }} -Name ${{ env.WebAppName }}" -Location${{ env.ResourceGroupRegionLocation }} -AppServicePlan ${{ env.AppServicePlanName }}
+              $webApp = New-AzWebApp -ResourceGroupName ${{ env.ResourceGroupName }} -Name ${{ env.WebAppName }} -Location${{ env.ResourceGroupRegionLocation }} -AppServicePlan ${{ env.AppServicePlanName }}
            }
            az webapp deployment list-publishing-profiles --xml --resource-group ${{ env.ResourceGroupName }} --name ${{ env.WebAppName }} | Out-File -FilePath .\profile.txt
            $profile = Get-Content .\profile.txt -Raw
-           $Bytes = [System.Text.Encoding]::Unicode.GetBytes($profile)
-           $EncodedText =[Convert]::ToBase64String($Bytes)
-           echo $EncodedText
+           echo "PROFILE=$profile" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
          
     - name: 'Deploy to Azure WebApp'
       uses: azure/webapps-deploy@v2.2.3
