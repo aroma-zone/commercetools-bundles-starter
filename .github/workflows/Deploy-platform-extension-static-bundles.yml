@@ -1,4 +1,4 @@
-name: Blob storage website CI
+name: Deploy platform-extension-static-bundles
 
 on:
   push:
