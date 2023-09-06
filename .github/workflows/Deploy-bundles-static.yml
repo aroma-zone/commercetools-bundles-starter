@@ -10,11 +10,9 @@ on:
 env:
   ResourceGroupName: rg_web_mwd_dev
   ResourceGroupRegionLocation: francecentral
-  AppServicePlanName: ASP-az-ct-bundles
-  WebAppName: bundles-static
-  Tier: Standard
-  WorkerSize:  Medium #Small, Medium, Large, ExtraLarge
-  NumberofWorkers: 2
+  StorageAccountName: stctbundlesstatic
+  SkuName: "Standard_LRS"
+  Kind: "StorageV2"
 
 jobs:
   build:
@@ -47,39 +45,32 @@ jobs:
          cd packages/bundles-static
          yarn add @commercetools-frontend/mc-scripts
          yarn run build && yarn compile-html:prod
-
-    - name: ls
-      run: ls -la
       
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         enable-AzPSSession: true
 
-    - name: Create Az Web App 
+    - name: Create Storage account
       uses: azure/powershell@v1
-      id: ACR_step
+      id: SA_step
       with:
         azPSVersion: "latest"
         inlineScript: |
-           $AppServicePlan = Get-AzAppServicePlan -Name ${{ env.AppServicePlanName }} -ResourceGroupName ${{ env.ResourceGroupName }} -ErrorAction SilentlyContinue
-           if($AppServicePlan -eq $null){
-              $AppServicePlan = New-AzAppServicePlan -Linux -Tier ${{ env.Tier }} -NumberofWorkers ${{ env.NumberofWorkers }} -WorkerSize ${{ env.WorkerSize }} -ResourceGroupName ${{ env.ResourceGroupName }} -Name ${{ env.AppServicePlanName }} -Location ${{ env.ResourceGroupRegionLocation }}
-           }
-           $webApp = Get-AzWebApp -ResourceGroupName ${{ env.ResourceGroupName }} -Name ${{ env.WebAppName }} -ErrorAction SilentlyContinue
-           if($webApp -eq $null){
-              $webApp = New-AzWebApp -ResourceGroupName ${{ env.ResourceGroupName }} -Name ${{ env.WebAppName }} -Location ${{ env.ResourceGroupRegionLocation }} -AppServicePlan ${{ env.AppServicePlanName }}
-           }
-           az webapp deployment list-publishing-profiles --xml --resource-group ${{ env.ResourceGroupName }} --name ${{ env.WebAppName }} | Out-File -FilePath .\profile.txt
-           $profile = Get-Content .\profile.txt -Raw
-           echo "PROFILE=$profile" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
-         
-    - name: 'Deploy to Azure WebApp'
-      uses: azure/webapps-deploy@v2.2.3
-      with: 
-         app-name: ${{ env.WebAppName }}
-         publish-profile: ${{ env.PROFILE }}
-         package: packages/bundles-static/public
+          $storageAccount = Get-AzStorageAccount -ResourceGroupName ${{ env.ResourceGroupName }} -Name ${{ env.StorageAccountName }} -ErrorAction SilentlyContinue
+          if($storageAccount -eq $null){
+             $storageAccount = New-AzStorageAccount -ResourceGroupName ${{ env.ResourceGroupName }} -Name ${{ env.StorageAccountName }} -Location ${{ env.ResourceGroupRegionLocation }} -SkuName ${{ env.SkuName }} -Kind ${{ env.Kind }}
+             Enable-AzStorageStaticWebsite -Context $storageAccount.Context -IndexDocument "index.html" -ErrorDocument404Path "index.html"
+          }
+          $webpoints = $storageAccount.PrimaryEndpoints
+          Write-host "Web endpoints: $webpoints"
+
+    - name: Upload to blob storage
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az storage blob delete-batch --account-name ${{ env.StorageAccountName }} --auth-mode key -s '$web'
+          az storage blob upload-batch --account-name ${{ env.StorageAccountName }} --auth-mode key -d '$web' -s ./packages/bundles-static/public
           
     - name: logout
       run: |
