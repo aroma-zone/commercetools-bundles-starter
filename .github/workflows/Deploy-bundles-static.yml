@@ -45,6 +45,7 @@ jobs:
          MC_APP_ENV: production
       run: |
          cd packages/bundles-static
+         yarn add @commercetools-frontend/mc-scripts
          yarn run build && yarn compile-html:prod
 
     - name: ls
