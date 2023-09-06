@@ -7,7 +7,7 @@ const config = {
   env: {
     production: {
       applicationId: "clh95s1bt0088ux017396c5in",
-      url: "https://silly-kelpie-df8923.netlify.app",
+      url: "https://stctbundlesstatic.z28.web.core.windows.net",
     },
     development: {
       initialProjectKey: "aromazone-dev"
