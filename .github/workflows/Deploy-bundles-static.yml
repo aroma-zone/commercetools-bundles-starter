@@ -39,7 +39,7 @@ jobs:
         
     - name: Building
       env: 
-         APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
+         APPLICATION_ID: ${{ secrets.APP_BUNDLES_STATIC_ID }}
          MC_APP_ENV: production
       run: |
          cd packages/bundles-static
