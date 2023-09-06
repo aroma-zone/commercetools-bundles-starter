@@ -6,8 +6,8 @@ const config = {
   cloudIdentifier: "gcp-eu",
   env: {
     production: {
-      applicationId: "clh95s1bt0088ux017396c5in",
-      url: "https://stctbundlesstatic.z28.web.core.windows.net",
+      applicationId: '${env:APPLICATION_ID}',
+      url: '${env:APPLICATION_URL}',
     },
     development: {
       initialProjectKey: "aromazone-dev"
